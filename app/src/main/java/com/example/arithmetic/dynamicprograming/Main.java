@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * author:lgh on 2020/6/9 9:58
+ * 动态规划
  */
 class Main {
 
