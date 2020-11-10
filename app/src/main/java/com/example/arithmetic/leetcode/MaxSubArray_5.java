@@ -13,10 +13,12 @@ public class MaxSubArray_5 {
     public static void main(String[] args) {
 
         int[] a = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, -4};
-        int[] b = new int[]{-2, 3, -1, 1, -3};
+        int[] b = new int[]{2, 3, 1, 1, 3};
 
-        System.out.println("1 ============== " + maxSubArray1(a));
-        System.out.println("2 ============== " + maxSubArray(b));
+        System.out.println("1 ============== a " + maxSubArray(a));
+        System.out.println("1 ============== b " + maxSubArray(b));
+        System.out.println("2 ============== a " + maxSubArray1(a));
+        System.out.println("2 ============== b " + maxSubArray1(b));
 
     }
 
@@ -26,7 +28,7 @@ public class MaxSubArray_5 {
      * 空间复杂度：O(1),时间复杂度O(n)
      */
     private static int maxSubArray1(int[] a) {
-        int cur_sum = a[0];
+        int cur_sum = 0;
         int max_sum = a[0];
         for (int value : a) {
             cur_sum = Math.max(value, cur_sum + value);

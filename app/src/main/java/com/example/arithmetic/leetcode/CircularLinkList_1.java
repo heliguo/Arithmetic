@@ -32,7 +32,7 @@ public class CircularLinkList_1 {
         node.next = new ListNode(2);
         node.next.next = new ListNode(0);
         node.next.next.next = new ListNode(-4);
-        node.next.next.next.next = new ListNode(-4);
+        node.next.next.next.next = new ListNode(4);
         node.next.next.next.next.next = node.next;
         System.out.println("1=======" + hasCycle1(node));
         System.out.println("2=======" + hasCycle2(node));
@@ -42,9 +42,9 @@ public class CircularLinkList_1 {
     /**
      * 方法一：使用hash表
      * set中不允许有重复值
-     * 时间复杂度：O(N)，其中 NN 是链表中的节点数。最坏情况下我们需要遍历每个节点一次。
+     * 时间复杂度：O(N)，其中 N 是链表中的节点数。最坏情况下我们需要遍历每个节点一次。
      * <p>
-     * 空间复杂度：O(N)，其中 NN 是链表中的节点数。主要为哈希表的开销
+     * 空间复杂度：O(N)，其中 N 是链表中的节点数。主要为哈希表的开销
      * ，最坏情况下我们需要将每个节点插入到哈希表中一次。
      *
      * @param node
