@@ -4,6 +4,7 @@ import java.util.BitSet;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.LockSupport;
@@ -11,6 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * author:lgh on 2020/6/10 21:08
+ * 交替打印
  */
 class Main {
 
@@ -40,6 +42,10 @@ class Main {
     static Condition condition1 = lock.newCondition();
 
     static Condition condition2 = lock.newCondition();
+
+    //方法7 Semaphore 信号量
+    static Semaphore sSemaphore1 = new Semaphore(0);
+    static Semaphore sSemaphore2 = new Semaphore(0);
 
 
     private static void test1() {
@@ -189,6 +195,32 @@ class Main {
         }, "t2").start();
     }
 
+    public static void test7() {
+        new Thread(() -> {
+            for (char c : a1) {
+                System.out.println(c);
+                sSemaphore2.release();
+                try {
+                    sSemaphore1.acquire();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        new Thread(() -> {
+            for (char c : a2) {
+                try {
+                    sSemaphore2.acquire();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(c);
+                sSemaphore1.release();
+            }
+        }).start();
+    }
+
 
     public static void main(String[] args) {
         //                test1();
@@ -196,19 +228,19 @@ class Main {
         //        test3();
         //        test4();
         //        test5();
-        //        test6();
+        test7();
         //        System.out.println(8>>3);
         int[] array = new int[]{1, 2, 3, 22, 0, 65};
         BitSet bitSet = new BitSet(array.length);
         //将数组内容组bitmap
-        for (int i = 0; i < array.length; i++) {
-            bitSet.set(array[i], true);
-        }
-        System.out.println(bitSet.size());
-        for (int i = 0; i < bitSet.length(); i++) {
-            if (bitSet.get(i))
-                System.out.println(i);
-        }
+        //        for (int i = 0; i < array.length; i++) {
+        //            bitSet.set(array[i], true);
+        //        }
+        //        System.out.println(bitSet.size());
+        //        for (int i = 0; i < bitSet.length(); i++) {
+        //            if (bitSet.get(i))
+        //                System.out.println(i);
+        //        }
 
     }
 
